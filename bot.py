@@ -36,9 +36,11 @@ def get_tweet(url):
 async def video_download(update, context):
     url = update.message.text
     result = get_tweet(url)
-    if result == None:
+    # print(json.dumps(result, indent = 4))
+    if result == None or result.get("includes", None) == None:
         await update.effective_message.reply_chat_action('typing')
         await context.bot.send_message(chat_id= update.message.chat_id,text="No video found in this url")
+        return
 
     medias = result["includes"]["media"]
     video_url = None
@@ -54,10 +56,14 @@ async def video_download(update, context):
             if v["content_type"] == "video/mp4":
                 if v["bit_rate"] > max_bit_rate:
                     video_url = v["url"]
-
+    # print(video_url)
     if video_url!= None:
         await update.effective_message.reply_chat_action('upload_video')
-        await context.bot.send_video(chat_id = update.message.chat_id,video=video_url)
+        try:
+            await context.bot.send_video(chat_id = update.message.chat_id,video=video_url)
+        except:
+            await context.bot.send_message(chat_id= update.message.chat_id,text=video_url)
+
     else:
         await update.effective_message.reply_chat_action('typing')
         await context.bot.send_message(chat_id= update.message.chat_id,text="No video found in this url")
