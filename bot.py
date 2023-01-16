@@ -26,14 +26,15 @@ def get_tweet(url):
     expansions = "attachments.media_keys"
     media_fields = "type,url,preview_image_url,variants"
     endpoint = "https://api.twitter.com/2/" + f"tweets?ids={id}&expansions={expansions}&media.fields={media_fields}"
-    response = requests.request("GET", endpoint, auth=bearer_oauth)
-    if response.status_code != 200:
-        return None
-    return response.json()
+    response = requests.request("GET", endpoint, auth=bearer_oauth)   
+    result = response.json()
+    if response.status_code == 200 and result.get("errors", None) == None:
+        return result
+    return None
 
 
 async def video_download(update, context):
-    url = update.message.text    
+    url = update.message.text
     result = get_tweet(url)
     if result == None:
         await update.effective_message.reply_chat_action('typing')
