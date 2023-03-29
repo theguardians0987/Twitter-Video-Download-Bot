@@ -40,3 +40,7 @@ Make local server or any online server to get the bot hosted
 7. Create new file ".env" and enter those credentials as **BEARER_TOKEN=123sample** and **BOT_TOKEN=123sample**
 
 8.   Run `python3 bot.py`
+
+# Disclaimer
+
+This program is given without any guarantee and it is up to you to use it at your own risk. The end-user bears full responsibility for its usage. The developers are not liable and cannot be held responsible for any harm or misuse caused by this program
