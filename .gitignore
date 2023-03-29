@@ -1,4 +1,3 @@
-project_env/
+env/
+.env
 __pycache__/
-twitter.env
-docker_files/
