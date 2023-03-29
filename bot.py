@@ -2,13 +2,13 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters
 import os
 import json
 import requests
+from decouple import config
 
 def bearer_oauth(r):
-    r.headers["Authorization"] = f"Bearer {os.environ['BEARER_TOKEN']}"
+    bearer_token = config('BEARER_TOKEN')
+    r.headers["Authorization"] = f"Bearer {bearer_token}"
     r.headers["User-Agent"] = "v2TweetLookupPython"
     return r
-
-api_token = "2129729817:AAHapqfPCAL56r9QJtcN6RjYt0ZJaLWPLpc"
 
 async def start_command(update, context):
     await update.effective_message.reply_chat_action('typing')
@@ -36,7 +36,6 @@ def get_tweet(url):
 async def video_download(update, context):
     url = update.message.text
     result = get_tweet(url)
-    # print(json.dumps(result, indent = 4))
     if result == None or result.get("includes", None) == None:
         await update.effective_message.reply_chat_action('typing')
         await context.bot.send_message(chat_id= update.message.chat_id,text="No video found in this url")
@@ -56,7 +55,7 @@ async def video_download(update, context):
             if v["content_type"] == "video/mp4":
                 if v["bit_rate"] > max_bit_rate:
                     video_url = v["url"]
-    # print(video_url)
+
     if video_url!= None:
         await update.effective_message.reply_chat_action('upload_video')
         try:
@@ -69,6 +68,7 @@ async def video_download(update, context):
         await context.bot.send_message(chat_id= update.message.chat_id,text="No video found in this url")
 
 def main():
+    api_token = config("BOT_TOKEN")
     application = Application.builder().token(api_token).build()
     application.add_handler(CommandHandler("start",start_command))
     application.add_handler(MessageHandler(filters.Regex(r'^https://twitter.com/.*'),video_download))
