@@ -13,3 +13,30 @@ No more struggling to find a reliable video downloader or wasting time trying to
 ✅ No ads or pop-ups: Say goodbye to annoying ads and pop-ups that plague most video downloader websites.
 
 ✅ Safe and secure: Our bot is completely safe and secure to use, so you don't have to worry about viruses or malware.
+
+
+## FOR DEVELOPERS
+
+### **Required Credentials**:
+- BOT API TOKEN from telegram bot father
+- BEARER TOKEN from twitter api
+
+### **How to deploy ?**
+	
+Make local server or any online server to get the bot hosted
+	
+1. Ensure you have `python3` installed 
+
+2. Clone this repository to your machine
+
+3. Create a virtual python environment by `python3 -m venv env` and activate it
+
+4. Install the required libraries by `pip install -r requirements.txt`
+
+5. Go to @BotFather in telegram, create a new bot and get the bot token
+
+6. Go to twitter developer portal, create new app and get the bearer token from the app
+
+7. Create new file ".env" and enter those credentials as **BEARER_TOKEN=123sample** and **BOT_TOKEN=123sample**
+
+8.   Run `python3 bot.py`
