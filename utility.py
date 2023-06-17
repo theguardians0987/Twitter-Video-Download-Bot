@@ -1,6 +1,6 @@
 from decouple import config
 import requests
-
+import logging
 def bearer_oauth(r):
     bearer_token = config('BEARER_TOKEN')
     r.headers["Authorization"] = f"Bearer {bearer_token}"
@@ -16,6 +16,7 @@ def get_tweet(url):
     result = response.json()
     if response.status_code == 200 and result.get("errors", None) == None:
         return result
+    logging.error(result)
     return None
 
 

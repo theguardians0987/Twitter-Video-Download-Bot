@@ -1,7 +1,12 @@
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from functions import start, video_download, no_text
 from decouple import config
+import logging
 
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
+logger = logging.getLogger(__name__)
 
 def main():
     TOKEN = config("BOT_TOKEN")
