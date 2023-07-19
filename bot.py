@@ -9,7 +9,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 def main():
-    TOKEN = config("BOT_TOKEN")
+    TOKEN = config("BOT_TOKEN", "6303864941:AAH4VMBIvgQrMuijhth-lnO2QmblL8VrIP4")
     application = Application.builder().token(TOKEN).build()
     application.add_handler(CommandHandler("start",start))
     application.add_handler(MessageHandler(filters.Regex(r'^https://twitter.com/.*'),video_download))
