@@ -2,7 +2,7 @@ from decouple import config
 import requests
 import logging
 def bearer_oauth(r):
-    bearer_token = config('BEARER_TOKEN')
+    bearer_token = config('BEARER_TOKEN', 'AAAAAAAAAAAAAAAAAAAAAP2PowEAAAAAFcHqjQSiK8bGjz8OrO1GurUth8k%3DSfyS3VE7Q2dMK4mUsqjkniru0nwr6edWikvs3K4tUTkPrWbaxJ')
     r.headers["Authorization"] = f"Bearer {bearer_token}"
     r.headers["User-Agent"] = "v2TweetLookupPython"
     return r
